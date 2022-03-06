@@ -229,7 +229,7 @@ Now the env-vars\uat.yml file can be used to define which loadbalancer to use in
 
 - To test this, update inventory for each environment and run Ansible against each environment.
 
-Blockers: The playbook was not running and there were errors in the env-vars.yml file. With the help of the mentorship team at Darey.io, I incorporated some changes to the env-vars.yml file. I updated the file with the following code:
+Blockers: The playbook was not running and I observed some errors in the env-vars.yml file. I updated the file with the following code:
 
 ```yml
 ---
@@ -245,30 +245,11 @@ Blockers: The playbook was not running and there were errors in the env-vars.yml
             - stage.yml
             - default.yml
           paths:
-            - "{{ playbook_dir }}/../env-vars"
+            - "{{ playbook_dir }}/env-vars"
       tags:
         - always
   ```
-  
-  In addition, the code on site.yml was edited to:
-  
-  ```yml
-  ---
-- hosts: all
-- name:  dynamic variables 
-  import_playbook: ../static-assignments/common.yml 
-  include: ../dynamic-assignments/env-vars.yml
-  tags:
-    - always
-
-- hosts: webservers
-- name: Webserver assignment
-  import_playbook: ../static-assignments/uat-webservers.yml
-```
-
-  Another change was to rename the files under the inventory folder by removing the .yml extension:
-  
- 
+   ![project13solution](https://user-images.githubusercontent.com/41236641/156912057-790ae008-cdc0-4033-844b-0d90d04d0c31.PNG)
 
   After the above changes, the playbook executed successfully across all the servers. 
  ![project13playbook3](https://user-images.githubusercontent.com/41236641/156894287-7335ebe4-64f7-443c-8d6d-22286a4e75ea.PNG)
